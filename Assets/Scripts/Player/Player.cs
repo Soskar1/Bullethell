@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Input))]
 [RequireComponent(typeof(Jumping))]
 [RequireComponent(typeof(Flipping))]
 [RequireComponent(typeof(PlayerShooting))]
@@ -11,7 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Input _input;
     [SerializeField] private Flipping _flipping;
     [SerializeField] private PlayerShooting _shooting;
-
+    [SerializeField] private Game _game;
 
     private void Awake() => _movement = GetComponent<IMovement>();
 
@@ -20,6 +19,7 @@ public class Player : MonoBehaviour
         _input.controls.Player.Jump.performed += _jumping.TryJump;
         _input.controls.Player.Shoot.performed += _shooting.TryShoot;
         _input.controls.Player.Shoot.canceled += _shooting.TryShoot;
+        _input.controls.Player.Restart.performed += _game.Restart;
     }
 
     private void OnDisable()
