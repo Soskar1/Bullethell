@@ -1,6 +1,9 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Input))]
+[RequireComponent(typeof(Jumping))]
+[RequireComponent(typeof(Flipping))]
+[RequireComponent(typeof(PlayerShooting))]
 public class Player : MonoBehaviour
 {
     private IMovement _movement;

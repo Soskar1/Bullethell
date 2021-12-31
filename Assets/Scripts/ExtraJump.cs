@@ -6,11 +6,10 @@ public class ExtraJump : MonoBehaviour
     [SerializeField] private SpriteRenderer _visual;
     [SerializeField] private float _restoreTime;
 
-    [SerializeField] private bool _interactable;
+    private bool _interactable = true;
 
-    public bool Interactable 
+    private bool Interactable 
     { 
-        get => _interactable;
         set 
         { 
             _interactable = value;

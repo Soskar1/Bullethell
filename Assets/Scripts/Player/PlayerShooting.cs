@@ -4,8 +4,13 @@ using UnityEngine.InputSystem;
 public class PlayerShooting : Shooting
 {
     private bool _held = false;
-    
-    [SerializeField] private float _maxTime;
+
+    [Header("Projectiles")]
+    [SerializeField] private int _maxProjectiles = 5;
+    private int _currentProjectilesCount = 0;
+
+    [Header("Delay")]
+    [SerializeField] private float _delay;
     private float _timer;
 
     private void Update()
@@ -14,8 +19,12 @@ public class PlayerShooting : Shooting
         { 
             if (_timer <= 0)
             {
-                Shoot();
-                _timer = _maxTime;
+                if (_currentProjectilesCount < _maxProjectiles)
+                {
+                    Shoot(ReduceProjectileCount);
+                    _currentProjectilesCount++;
+                    _timer = _delay;
+                }
             }
             else
             {
@@ -31,4 +40,6 @@ public class PlayerShooting : Shooting
         if (ctx.canceled)
             _held = false;
     }
+
+    private void ReduceProjectileCount() => _currentProjectilesCount--;
 }

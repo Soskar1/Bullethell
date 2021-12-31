@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 468273270}
   - component: {fileID: 468273272}
   - component: {fileID: 468273273}
+  - component: {fileID: 468273274}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -303,9 +304,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aece77bf30b4f444c82eaa50124554fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pool: {fileID: 468273274}
   _projectile: {fileID: 1141662480869957200, guid: 93a64454e65c98b4ab626e0af39c6f21, type: 3}
   _shotPos: {fileID: 1077442570}
-  _maxTime: 0.1
+  _delay: 0.1
+--- !u!114 &468273274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468273263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef6b5c62b36b86b44bdcff98408141eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectile: {fileID: 1141662480869957200, guid: 93a64454e65c98b4ab626e0af39c6f21, type: 3}
+  _count: 10
+  _maxSize: 100
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
