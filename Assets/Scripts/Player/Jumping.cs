@@ -9,21 +9,28 @@ public class Jumping : MonoBehaviour
     [SerializeField] private Rigidbody2D _rb2d;
     [SerializeField] private float _force;
 
-    [SerializeField] private int _maxJumps;
-    private int _jumpCount = 0;
+    [SerializeField] private int _maxExtraJumps;
+    private int _extraJumpCount = 0;
 
     private void LateUpdate()
     {
-        if (_groundCheck.Check())
-            _jumpCount = 0;
+        if (_extraJumpCount > 0)
+            if (_groundCheck.Check())
+                _extraJumpCount = 0;
     }
 
     public void TryJump(InputAction.CallbackContext ctx)
     {
-        if (_groundCheck.Check() || _jumpCount > 0 && _jumpCount < _maxJumps)
+        if (_groundCheck.Check() || _extraJumpCount < _maxExtraJumps)
         {
             _rb2d.AddForce(Vector2.up * _force, ForceMode2D.Impulse);
-            _jumpCount++;
+            _extraJumpCount++;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<ExtraJump>() != null)
+            collision.GetComponent<ExtraJump>().AddExtraJump(ref _extraJumpCount);
     }
 }
