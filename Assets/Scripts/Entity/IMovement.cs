@@ -1,4 +1,7 @@
-public interface IMovement
+namespace Entity
 {
-    void Move(float direction);
+    public interface IMovement
+    {
+        void Move(float direction);
+    }
 }
