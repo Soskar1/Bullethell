@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using Core.Pool;
+using LevelDesign;
 
 namespace Entity
 {
