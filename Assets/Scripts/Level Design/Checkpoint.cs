@@ -15,11 +15,12 @@ namespace LevelDesign
         {
             if (collision.GetComponent<Projectile>() != null)
             {
-                Debug.Log("Идёт сохранение!");
+                Projectile projectile = collision.GetComponent<Projectile>();
+
                 _game.Data.position = _player.position;
                 _game.Data.deathCount = _counter.DeathCount;
-                Debug.Log(_game.Data.deathCount);
                 SaveSystem.Save(_game.Data);
+                projectile.pool.pool.Release(projectile);
             }
         }
     }
