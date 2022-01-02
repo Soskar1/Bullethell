@@ -26,7 +26,7 @@ namespace Entity.MainCharacter
         {
             if (_groundCheck.Check() || _extraJumpCount < _maxExtraJumps)
             {
-                _rb2d.AddForce(Vector2.up * _force, ForceMode2D.Impulse);
+                _rb2d.velocity = Vector2.up * _force;
                 _extraJumpCount++;
             }
         }

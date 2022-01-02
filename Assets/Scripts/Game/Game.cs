@@ -11,6 +11,8 @@ namespace Core
 
         private PlayerData _data;
 
+        public PlayerData Data { get => _data; set => _data = value; }
+
         private void Awake()
         {
             _data = TryLoadSave();

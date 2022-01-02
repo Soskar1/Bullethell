@@ -1,4 +1,5 @@
 using Core;
+using Core.UI;
 using UnityEngine;
 
 namespace Entity.MainCharacter
@@ -14,6 +15,7 @@ namespace Entity.MainCharacter
         [SerializeField] private Flipping _flipping;
         [SerializeField] private PlayerShooting _shooting;
         [SerializeField] private Game _game;
+        [SerializeField] private Counter _deathCounter;
 
         private void Awake() => _movement = GetComponent<IMovement>();
 
@@ -31,6 +33,8 @@ namespace Entity.MainCharacter
             _input.controls.Player.Jump.performed -= _jumping.TryJump;
             _input.controls.Player.Shoot.performed -= _shooting.TryShoot;
             _input.controls.Player.Shoot.canceled -= _shooting.TryShoot;
+
+            _deathCounter.Add();
         }
 
         private void Update()
