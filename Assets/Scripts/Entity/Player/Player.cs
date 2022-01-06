@@ -17,16 +17,18 @@ namespace Entity.MainCharacter
         [SerializeField] private PlayerInput _input;
         [SerializeField] private Flipping _flipping;
         [SerializeField] private PlayerShooting _shooting;
+        [SerializeField] private Animator _animator;
+
         [SerializeField] private Game _game;
         [SerializeField] private Counter _deathCounter;
-        [SerializeField] private Animator _animator;
+        [SerializeField] private GameObject _gameOver;
 
         private void Awake() => _movement = GetComponent<IMovement>();
 
-        private void Start() => _input.controls.Player.Restart.performed += _game.Restart;
-
         private void OnEnable()
         {
+            _gameOver.SetActive(false);
+
             _input.controls.Player.Jump.performed += _jumping.TryJump;
             _input.controls.Player.Shoot.performed += _shooting.TryShoot;
             _input.controls.Player.Shoot.canceled += _shooting.TryShoot;
@@ -39,6 +41,7 @@ namespace Entity.MainCharacter
             _input.controls.Player.Shoot.canceled -= _shooting.TryShoot;
 
             _deathCounter.Add();
+            _gameOver.SetActive(true);
         }
 
         private void Update()

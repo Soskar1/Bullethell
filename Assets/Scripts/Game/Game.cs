@@ -10,6 +10,8 @@ namespace Core
 {
     public class Game : MonoBehaviour
     {
+        [SerializeField] private PlayerInput _input;
+
         [HideInInspector] public Transform player;
         [SerializeField] private Transform _start;
 
@@ -19,6 +21,9 @@ namespace Core
         private PlayerData _data;
         public PlayerData Data { get => _data; set => _data = value; }
 
+        private void OnEnable() => _input.controls.Player.Restart.performed += Restart;
+        private void OnDisable() => _input.controls.Player.Restart.performed -= Restart;
+
         private void Awake()
         {
             _data = TryLoadSave();
@@ -27,8 +32,8 @@ namespace Core
             {
                 if (character.playableCharacterId == _data.playerID)
                 {
-                    character.gameObject.SetActive(true);
                     player = character.transform;
+                    character.gameObject.SetActive(true);
                 }
                 else
                 {
@@ -36,10 +41,18 @@ namespace Core
                 }
             }
 
+            player.position = _data.position;
             SaveData();
         }
 
         public void Restart(InputAction.CallbackContext ctx)
+        {
+            _data = SaveSystem.Load();
+            player.position = _data.position;
+            player.gameObject.SetActive(true);
+        }
+
+        public void Restart()
         {
             _data = SaveSystem.Load();
             player.position = _data.position;
