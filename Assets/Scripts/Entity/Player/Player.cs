@@ -7,8 +7,11 @@ namespace Entity.MainCharacter
     [RequireComponent(typeof(Jumping))]
     [RequireComponent(typeof(Flipping))]
     [RequireComponent(typeof(PlayerShooting))]
+    [RequireComponent(typeof(Animator))]
     public class Player : MonoBehaviour
     {
+        public int playableCharacterId;
+
         private IMovement _movement;
         [SerializeField] private Jumping _jumping;
         [SerializeField] private PlayerInput _input;
@@ -16,6 +19,7 @@ namespace Entity.MainCharacter
         [SerializeField] private PlayerShooting _shooting;
         [SerializeField] private Game _game;
         [SerializeField] private Counter _deathCounter;
+        [SerializeField] private Animator _animator;
 
         private void Awake() => _movement = GetComponent<IMovement>();
 
@@ -42,6 +46,8 @@ namespace Entity.MainCharacter
             if (_input.MovementInput > 0 && !_flipping.FacingRight ||
                 _input.MovementInput < 0 && _flipping.FacingRight)
                 _flipping.Flip();
+
+            _animator.SetFloat("Speed", Mathf.Abs(_input.MovementInput));
         }
 
         private void FixedUpdate() => _movement.Move(_input.MovementInput);
